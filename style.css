@@ -7,6 +7,7 @@
     font-family: 'systeme UI', 'sans serif';
     line-height: 1.5rem;
     outline: none;
+    z-index: 1;
 }
 
 body{
@@ -35,6 +36,7 @@ a{
 
 header.header{
     max-height: 5rem;
+    background-color: green;
 }
 
 main.main{
@@ -54,12 +56,14 @@ main.main{
 }
 
 .header_content_left_logo{
-    border: 2px solid black;
+    border: 2px solid white;
 }
 
 .header_content_left_logo a{
     padding: .5rem;
     font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
 }
 
 .header_content_right_item ul{
@@ -69,14 +73,28 @@ main.main{
 }
 
 .header_content_right_item ul li a{
-    padding: 0 1rem;
+    padding: 1rem;
     font-size: 1.2rem;
+    color: white;
+    font-weight: 600;
+    transition: all .5s ease-in-out ;
+}
+
+.header_content_right_item ul li a:hover{
+    border: white;
+    background-color: white;
+    color: green;
 }
 
 button{
     padding: .5rem .5rem;
     width: 10rem;
     margin-top: 1rem;
+    background-color: green;
+    border: 2px solid white;
+    color: white;
+    font-weight: 500;
+
 }
 
 .header_content_right_item ul li button a :nth-child(2){
@@ -94,6 +112,17 @@ button{
 
 .banner_content_left{
     width: 35rem;  
+}
+
+.banner_content_left_img::after{
+    content: '';
+    position: absolute;
+    right: -0.5rem;
+    bottom: 0;
+    border-right: 5px solid green;
+    border-bottom: 5px solid green;
+    width: 35rem;
+    height: 18rem;
 }
 
 .banner_content_right{
@@ -124,6 +153,16 @@ button{
     padding: 1rem 0;
 }
 
+.article_info_title{
+    padding: 1rem 0;
+}
+
+.article_info_title h1{
+    font-weight: 700;
+    color: green;
+    font-size: 1.5rem;
+}
+
 .article_content{
     display: flex;
     justify-content: space-between;
@@ -131,31 +170,42 @@ button{
 }
 
 .article_content_left{
-    width: calc(100% - 15rem);
+    width: calc(100% - 20rem);
     display: flex;
     justify-content: center;
 }
 
 .article_content_left_grid{
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
+    padding-top: 1rem;
     gap: 2rem;
-    border-right: 2px solid gray;
+    border-right: 2px solid green;
+    border-top: 2px solid green;
 }
 
 .article_content_left_grid_item{
     padding: .5rem;
     width: 16rem;
-    height: 20rem;
-   box-shadow: 0 0 10px gray;
+    height: 18rem;
+    box-shadow: 0 0 10px green;
+    border: 1px solid green;
 }
 
 .article_content_left_grid_item a{
     display: inline-block;
-    padding: .5rem;
-    border: 1px solid black;
+    padding: 0 .5rem;
+    border: 1px solid green;
     margin-top: .5rem;
     border-radius: 10px;
+    color: green;
+}
+
+.article_content_right{
+    width: 18rem;
+    display: flex;
+    justify-content: center;
 }
 
 .article_content_right_categorie_list{
