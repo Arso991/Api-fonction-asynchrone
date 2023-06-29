@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="container">
+                <div class="header_content">
+                    <div class="header_content_left">
+                        <div class="header_content_left_logo">
+                            <a href="#">Logo</a>
+                        </div>
+                    </div>
+                    <div class="header_content_right">
+                        <div class="header_content_right_item">
+                            <ul>
+                                <li><a href="#">Acceuil</a></li>
+                                <li><a href="#">Articles</a></li>
+                                <li><a href="#">A propos</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="main">
+            <section class="banner">
+                <div class="container">
+                    <div class="banner_content">
+                        <!-- <div class="banner_content_left">
+                            <div class="banner_content_left_img">
+                                <img src="../../Téléchargements/uneamazone.jpg" alt="image api">
+                            </div>
+                        </div>
+                        <div class="banner_content_right">
+                            <div class="banner_content_right_text">
+                                <h1>Titre</h1>
+                                <h2>Auteur</h2>
+                                <p>Description</p>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </section>
+            <section class="article">
+                <div class="container">
+                    <div class="article_content">
+                        <div class="article_content_left">
+                            <div class="article_content_left_grid">
+                               <!--  <div class="article_content_left_grid_item">
+                                    <div class="article_content_left_grid_item_img">
+                                        <img src="../../Téléchargements/uneamazone.jpg" alt="articleimg">
+                                    </div>
+                                    <p>Date</p>
+                                    <p>Titre</p>
+                                    <a href="#">Voir plus</a>
+                                </div>
+                                <div class="article_content_left_grid_item">
+                                    <div class="article_content_left_grid_item_img">
+                                        <img src="../../Téléchargements/uneamazone.jpg" alt="articleimg">
+                                    </div>
+                                    <p>Date</p>
+                                    <p>Titre</p>
+                                    <a href="#">Voir plus</a>
+                                </div>
+                                <div class="article_content_left_grid_item">
+                                    <div class="article_content_left_grid_item_img">
+                                        <img src="../../Téléchargements/uneamazone.jpg" alt="articleimg">
+                                    </div>
+                                    <p>Date</p>
+                                    <p>Titre</p>
+                                    <a href="#">Voir plus</a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="article_content_right">
+                            <div class="article_content_right_categorie">
+                                <div class="article_content_right_categorie_list">
+                                    <ul class="article_content_right_categorie_list_item">
+                                        <!-- <li>Systeme Informatique</li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        let url = `https://test1.ecole229.bj/api/categories`
+        let host = `https://test1.ecole229.bj/api/posts`
+
+        let infoTab;
+        let dataTab;
+
+        secondApi = async () =>{
+            let resp = await fetch(host);
+            let info = await resp.json();
+
+            infoTab = info.posts;
+            let banner = ``;
+            let report = ``;
+            let bannerContent = document.querySelector('.banner_content')
+            let reportContent = document.querySelector('.article_content_left_grid');
+            reportContent.innerHTML = '<img src="Loading_icon.gif" alt="Loader">';
+
+            banner = `
+            <div class="banner_content_left">
+                <div class="banner_content_left_img">
+                    <img src="https://test1.ecole229.bj/${infoTab[0].image}" alt="image api">
+                    </div>
+                    </div>
+                    <div class="banner_content_right">
+                        <div class="banner_content_right_text">
+                            <h1>${infoTab[0].title}</h1>
+                            <h2>${infoTab[0].user_name}</h2>
+                            <p>${infoTab[0].description}</p>
+                            </div>
+                </div>
+                `
+            bannerContent.innerHTML = banner;
+
+            infoTab.forEach(item =>{
+                                report += `
+                                                <div class="article_content_left_grid_item">
+                                                    <div class="article_content_left_grid_item_img">
+                                                        <img src="https://test1.ecole229.bj/${item.image}" alt="articleimg">
+                                                    </div>
+                                                    <p>Date:${item.published_at} </p>
+                                                    <p>Titre:${item.title}</p>
+                                                    <a href="#">Plus</a>
+                                                </div>
+                                `
+            })
+
+            reportContent.innerHTML = report;
+
+
+        }
+
+        secondApi();
+
+
+        firstApi = async () =>{
+            let response = await fetch(url);
+            let data = await response.json();
+
+            dataTab = data.categories;
+
+            let categorieItem = document.querySelector('.article_content_right_categorie_list_item');
+            categorieItem.innerHTML = '<img src="Loading_icon.gif" alt="loader">'
+            let categoriesList = ``;
+            dataTab.forEach((item) =>{
+                
+                categoriesList += `<li><button value="${item.name}">${item.name}</button></li>`
+
+            })
+
+            categorieItem.innerHTML = `
+                                        <li><button value="All">All</button></li>
+                                        ${categoriesList}
+                        `;
+            
+            let buttonValue;
+            let button = document.querySelectorAll('.article_content_right_categorie_list_item button');
+            
+            
+            button.forEach(item =>{
+                item.addEventListener('click', () =>{
+                   buttonValue = item.value;
+                   let reportContent = document.querySelector('.article_content_left_grid');
+                    reportContent.innerHTML = '<img src="Loading_icon.gif" alt="loader">'
+
+                   filterCategory = async () => {
+                        let resp = await fetch(host);
+                        let info = await resp.json();
+
+                        infoTab = info.posts;
+
+                        let report = ``;
+                        
+                        infoTab.forEach(item => {
+                            if (buttonValue == 'All'){
+                                report += `
+                                <div class="article_content_left_grid_item">
+                                    <div class="article_content_left_grid_item_img">
+                                        <img src="https://test1.ecole229.bj/${item.image}" alt="articleimg">
+                                    </div>
+                                    <p>Date:${item.published_at} </p>
+                                    <p>Titre:${item.title}</p>
+                                    <a href="#">Plus</a>
+                                </div>
+                            `
+                            }
+                            reportContent.innerHTML = report;
+
+                            if(buttonValue == item.category_name){
+                                report += `
+                                <div class="article_content_left_grid_item">
+                                    <div class="article_content_left_grid_item_img">
+                                        <img src="https://test1.ecole229.bj/${item.image}" alt="articleimg">
+                                    </div>
+                                    <p>Date:${item.published_at} </p>
+                                    <p>Titre:${item.title}</p>
+                                    <a href="#">Plus</a>
+                                </div>
+                            ` 
+                            }
+                            reportContent.innerHTML = report; 
+                        })
+                    }
+
+                    filterCategory();
+                })
+            })
+            
+
+        }
+
+        firstApi()
+
+
+
+    </script>
+</body>
+</html>
